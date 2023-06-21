@@ -32,3 +32,12 @@ SELECT Walker.Id as 'WalkerId', Walker.[Name], Walker.ImageUrl, NeighborhoodId, 
                         FROM Walker
                         JOIN Neighborhood ON Walker.NeighborhoodId = Neighborhood.Id
                         WHERE Walker.Id = 1
+
+SELECT Dog.Id as 'DogId', Dog.[Name] as 'DogName', Dog.Breed, Dog.OwnerId, [Owner].[Name] as 'OwnerName'
+                        FROM Dog
+                        JOIN [Owner] ON Dog.OwnerId = [Owner].Id
+
+SELECT Dog.Id as 'DogId', Dog.[Name] as 'DogName', Dog.Breed, Dog.ImageUrl, Dog.Notes, Dog.OwnerId, [Owner].[Name] as 'OwnerName'
+    FROM Dog
+    JOIN [Owner] ON Dog.OwnerId = [Owner].Id
+    WHERE Dog.Id = 1

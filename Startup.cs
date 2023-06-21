@@ -21,12 +21,13 @@ namespace DogGo
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        // This method gets called by the runtime. Use this method to add services to the container. Dependency injection - one of multiple ways
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
             services.AddTransient<IWalkerRepository, WalkerRepository>();
             services.AddTransient<IOwnerRepository, OwnerRepository>();
+            services.AddTransient<IDogRepository, DogRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
