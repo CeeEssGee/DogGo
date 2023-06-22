@@ -33,7 +33,7 @@ namespace DogGo.Repositories
                     cmd.CommandText = @"
                         SELECT [Owner].Id AS 'OwnerId', [Owner].Name AS 'OwnerName', [Address], Email, Phone, NeighborhoodId, Neighborhood.Name as 'NeighborhoodName'
                         FROM [Owner]
-                        JOIN Neighborhood ON [Owner].Id = Neighborhood.Id
+                        JOIN Neighborhood ON [Owner].NeighborhoodId = Neighborhood.Id
                     ";
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
