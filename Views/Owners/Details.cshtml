@@ -7,7 +7,7 @@
   <section class="container">
     <img
       style="width:100px;float:left;margin-right:20px"
-      src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Font_Awesome_5_regular_user-circle.svg"
+      src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Font_Awesome_5_regular_user-circle.svg" alt="person"
     />
     <div>
       <label class="font-weight-bold">Address:</label>
@@ -67,7 +67,7 @@
       <ul class="list-group mt-4">
         @foreach (Walker walker in Model.Walkers) {
         <li class="list-group-item disabled" aria-disabled="true">
-          <img src="@walker.ImageUrl" style="width:50px" />
+          <img src="@walker.ImageUrl" style="width:50px" alt="Walker" />
           <span class="font-weight-bold ml-4">@walker.Name</span>
         </li>
         }
