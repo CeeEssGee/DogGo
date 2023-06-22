@@ -41,3 +41,7 @@ SELECT Dog.Id as 'DogId', Dog.[Name] as 'DogName', Dog.Breed, Dog.ImageUrl, Dog.
     FROM Dog
     JOIN [Owner] ON Dog.OwnerId = [Owner].Id
     WHERE Dog.Id = 1
+
+    SELECT Id, Name, Breed, Notes, ImageUrl, OwnerId 
+                FROM Dog
+                WHERE OwnerId = 1
