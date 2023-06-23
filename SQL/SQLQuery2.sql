@@ -48,3 +48,24 @@ SELECT Dog.Id as 'DogId', Dog.[Name] as 'DogName', Dog.Breed, Dog.ImageUrl, Dog.
 
 SELECT Id, Name FROM Neighborhood
 
+SELECT Walks.Id AS WalkId, Duration, [Date], WalkerId, Walks.DogId AS DogId, Dog.Name AS DogName, Dog.OwnerId as OwnerId, Breed, Notes, ImageUrl, Owner.Id as OwnerId, Owner.Email as OwnerEmail, Owner.Name AS OwnerName, Owner.Address AS OwnerAddress, NeighborhoodId, Phone, Neighborhood.Name AS NeighborhoodName
+    FROM Walks
+    JOIN Dog ON Walks.DogId = Dog.Id
+    JOIN [Owner] ON Dog.OwnerId = Owner.Id
+    JOIN Neighborhood ON NeighborhoodId = Neighborhood.Id
+
+
+SELECT Walks.Id AS WalkId, Duration, [Date], WalkerId, Walks.DogId AS DogId, Dog.Name AS DogName, Dog.OwnerId as OwnerId, Breed, Notes, ImageUrl, Owner.Id as OwnerId, Owner.Email as OwnerEmail, Owner.Name AS OwnerName, Owner.Address AS OwnerAddress, NeighborhoodId, Phone, Neighborhood.Name AS NeighborhoodName
+    FROM Walks
+    JOIN Dog ON Walks.DogId = Dog.Id
+    JOIN [Owner] ON Dog.OwnerId = Owner.Id
+    JOIN Neighborhood ON NeighborhoodId = Neighborhood.Id
+    WHERE WalkerId = 1
+
+SELECT Walks.Id AS WalkId, Duration, [Date], WalkerId, Walks.DogId AS DogId, Dog.Name AS DogName, Dog.OwnerId as OwnerId, Breed, Notes, ImageUrl, Owner.Id as OwnerId, Owner.Email as OwnerEmail, Owner.Name AS OwnerName, Owner.Address AS OwnerAddress, NeighborhoodId, Phone, Neighborhood.Name AS NeighborhoodName
+                                FROM Walks
+                                JOIN Dog ON Walks.DogId = Dog.Id
+                                JOIN [Owner] ON Dog.OwnerId = Owner.Id
+                                JOIN Neighborhood ON NeighborhoodId = Neighborhood.Id                                
+                                WHERE WalkerId = 2
+                                ORDER BY Owner.Name
