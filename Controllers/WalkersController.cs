@@ -1,9 +1,12 @@
 ﻿using DogGo.Models;
 using DogGo.Models.ViewModels;
 using DogGo.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 
 namespace DogGo.Controllers
 {
@@ -31,9 +34,20 @@ namespace DogGo.Controllers
 
 
         // GET: Walkers
+        
         public ActionResult Index()
         {
+
             List<Walker> walkers = _walkerRepo.GetAllWalkers();
+
+            if (User.Identity.IsAuthenticated)
+            {
+                int userId = GetCurrentUserId();
+                Owner owner = _ownerRepo.GetOwnerById(userId);
+                List<Walker> neighborhoodWalkers = walkers.Where(walker => walker.NeighborhoodId == owner.NeighborhoodId).ToList();
+                return View(neighborhoodWalkers);
+            }
+            else 
 
             return View(walkers);
         }
@@ -120,6 +134,13 @@ namespace DogGo.Controllers
             }
         }
 
-        
+        // Get the id of current logged in user
+        private int GetCurrentUserId()
+        {
+            string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return int.Parse(id);
+        }
+
+
     }
 }
