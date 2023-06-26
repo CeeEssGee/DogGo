@@ -4,6 +4,7 @@ using DogGo.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -17,19 +18,22 @@ namespace DogGo.Controllers
         private readonly IWalkRepository _walkRepo;
         private readonly IOwnerRepository _ownerRepo;
         private readonly IDogRepository _dogRepo;
+        private readonly INeighborhoodRepository _neighborhoodRepo;
 
         // ASP.NET will give us an instance of our Walker Repository. This is called "Dependency Injection"
         public WalkersController(
             IWalkerRepository walkerRepository, 
             IWalkRepository walkRepository, 
             IOwnerRepository ownerRepository, 
-            IDogRepository dogRepository)
+            IDogRepository dogRepository,
+            INeighborhoodRepository neighborhoodRepository)
 
         {
             _walkerRepo = walkerRepository;
             _walkRepo = walkRepository;
             _ownerRepo = ownerRepository;
             _dogRepo = dogRepository;
+            _neighborhoodRepo = neighborhoodRepository;
         }
 
 
@@ -74,21 +78,31 @@ namespace DogGo.Controllers
         // GET: WalkersController/Create
         public ActionResult Create()
         {
-            return View();
+            List<Neighborhood> neighborhoods = _neighborhoodRepo.GetAll();
+
+            WalkerProfileViewModel vm = new WalkerProfileViewModel
+            {
+                Walker = new Walker(),
+                Neighborhoods = neighborhoods
+            };
+
+            return View(vm);
         }
 
         // POST: WalkersController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Walker walker)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                _walkerRepo.AddWalker(walker);
+                return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                Console.WriteLine($"{ex.Message}");
+                return View(walker);
             }
         }
 

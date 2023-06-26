@@ -8,6 +8,7 @@ namespace DogGo.Repositories
     {
         List<Walker> GetAllWalkers();
         Walker GetWalkerById(int id);
+        void AddWalker(Walker walker);
         List<Walker> GetWalkersInNeighborhood(int neighborhoodId);
     }
 }
